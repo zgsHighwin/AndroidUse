@@ -8,8 +8,12 @@ package zgs.android.use.base;
  * Description:
  */
 
-public abstract class BaseNoErrorFlowableSubscribe<R> extends BaseFlowableSubscribe<R> {
+public abstract class BaseNoErrorSubscribe<R> extends BaseSubscribe<R> {
 
     public abstract void onNext(R r);
 
+    @Override
+    public void onError(Throwable t) {
+
+    }
 }

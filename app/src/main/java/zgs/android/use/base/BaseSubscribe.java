@@ -13,7 +13,7 @@ import org.reactivestreams.Subscription;
  * Description:
  */
 
-public abstract class BaseFlowableSubscribe<R> implements Subscriber<R> {
+public abstract class BaseSubscribe<R> implements Subscriber<R> {
 
 
     @Override

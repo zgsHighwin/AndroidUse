@@ -12,7 +12,7 @@ import io.reactivex.Flowable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import zgs.android.use.R;
-import zgs.android.use.base.BaseFlowableSubscribe;
+import zgs.android.use.base.BaseSubscribe;
 
 /**
  * @author zgsHighwin
@@ -37,7 +37,7 @@ public class SplashActivity extends AppCompatActivity {
                 .onBackpressureDrop()
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new BaseFlowableSubscribe<Long>() {
+                .subscribe(new BaseSubscribe<Long>() {
                     @Override
                     public void onNext(Long aLong) {
                         mImageView.setAlpha(aLong * 1.0f / 2000);
