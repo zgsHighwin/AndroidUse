@@ -12,7 +12,7 @@ import io.reactivex.Flowable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import zgs.android.use.R;
-import zgs.android.use.base.BaseSubscribe;
+import zgs.android.use.base.BaseNoErrorSubscribe;
 
 /**
  * @author zgsHighwin
@@ -32,24 +32,26 @@ public class SplashActivity extends AppCompatActivity {
 
         mImageView = ((ImageView) findViewById(R.id.iv));
 
-
+        //延时2000ms跳到主页面
         Flowable.interval(1, TimeUnit.MILLISECONDS)
                 .onBackpressureDrop()
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new BaseSubscribe<Long>() {
+                .subscribe(new BaseNoErrorSubscribe<Long>() {
+                    @Override
+                    protected long getRequestNum() {
+                        return 2000;
+                    }
+
                     @Override
                     public void onNext(Long aLong) {
                         mImageView.setAlpha(aLong * 1.0f / 2000);
                         if (aLong == 2000) {
                             startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                            finish();
                         }
                     }
-
-                    @Override
-                    public void onError(Throwable t) {
-
-                    }
                 });
-     }
+
+    }
 }

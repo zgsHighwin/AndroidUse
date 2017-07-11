@@ -1,5 +1,7 @@
 package zgs.android.use.base;
 
+import android.util.Log;
+
 /**
  * Created by zgsHighwin on 2017/6/28 0028.
  * <p>
@@ -14,6 +16,6 @@ public abstract class BaseNoErrorSubscribe<R> extends BaseSubscribe<R> {
 
     @Override
     public void onError(Throwable t) {
-
+        Log.d("BaseNoErrorSubscribe", t.getLocalizedMessage());
     }
 }

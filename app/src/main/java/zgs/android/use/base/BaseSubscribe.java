@@ -24,7 +24,7 @@ public abstract class BaseSubscribe<R> implements Subscriber<R> {
 
     }
 
-    private long getRequestNum() {
+    protected long getRequestNum() {
         return 1;
     }
 
