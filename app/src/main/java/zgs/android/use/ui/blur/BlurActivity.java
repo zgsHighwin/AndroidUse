@@ -1,42 +1,64 @@
-package zgs.android.use.ui;
+package zgs.android.use.ui.blur;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.renderscript.Allocation;
 import android.renderscript.Element;
 import android.renderscript.RenderScript;
 import android.renderscript.ScriptIntrinsicBlur;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.ImageView;
-import android.widget.SeekBar;
 
 import zgs.android.use.R;
 
-public class BlurActivity extends AppCompatActivity implements SeekBar.OnSeekBarChangeListener {
+public class BlurActivity extends AppCompatActivity {
 
     private boolean isBlur;
     private Bitmap mBitmap;
     private ImageView mIv;
-    private SeekBar mSeekBar;
+    private View mView;
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_blur);
 
         mIv = ((ImageView) findViewById(R.id.iv));
-        mSeekBar = ((SeekBar) findViewById(R.id.seek_bar));
         mBitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.icon_androiod);
-        mSeekBar.setOnSeekBarChangeListener(this);
+        mIv.setImageBitmap(mBitmap);
+        mView = findViewById(R.id.view);
+        mView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                mView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                mView.setBackground(new BitmapDrawable(getResources(), blurBitmap(getScreenshot(mView), 25)));
+            }
+        });
+    }
+
+    public void visible(View view) {
+        mView.setVisibility(mView.getVisibility() == View.GONE ? View.VISIBLE : View.GONE);
     }
 
     public void blur(View view) {
-        mIv.setImageBitmap(!isBlur ? blurBitmap(mBitmap, 0) : blurBitmap(mBitmap, 25));
+        mIv.setImageBitmap(!isBlur ? blurBitmap(mBitmap, 25) : mBitmap);
         isBlur = !isBlur;
+    }
+
+
+    private static Bitmap getScreenshot(View v) {
+        Bitmap b = Bitmap.createBitmap(v.getWidth(), v.getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(b);
+        v.draw(c);
+        return b;
     }
 
     /**
@@ -63,23 +85,4 @@ public class BlurActivity extends AppCompatActivity implements SeekBar.OnSeekBar
 
     }
 
-    @Override
-    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-        if (fromUser) {
-            float value = progress * 1.0f / 10000;
-            Log.d("BlurActivity", "progress:" + progress);
-            Log.d("BlurActivity", "progress*1.0f/10000:" + value);
-            mIv.setImageBitmap(blurBitmap(mBitmap, value == 0 ? 0.01f : value));
-        }
-    }
-
-    @Override
-    public void onStartTrackingTouch(SeekBar seekBar) {
-
-    }
-
-    @Override
-    public void onStopTrackingTouch(SeekBar seekBar) {
-
-    }
 }

@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import java.util.List;
 
+import zgs.android.use.ui.blur.BlurActivity;
 import zgs.android.use.ui.list.ListActivity;
 
 
@@ -19,3 +20,4 @@ public class MainActivity extends ListActivity {
         return mClassList;
     }
 }
+

@@ -17,7 +17,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.MainActivity"/>
-        <activity android:name=".ui.BlurActivity"/>
+        <activity android:name=".ui.blur.BlurActivity"/>
+        <activity android:name=".ui.editcheckboxinrecyclerview.EditCheckBoxActivity">
+        </activity>
     </application>
 
 </manifest>
