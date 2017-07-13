@@ -18,7 +18,7 @@
         </activity>
         <activity android:name=".ui.MainActivity"/>
         <activity android:name=".ui.blur.BlurActivity"/>
-        <activity android:name=".ui.editcheckboxinrecyclerview.EditCheckBoxActivity">
+        <activity android:name=".ui.recyclerview.edit.EditActivity">
         </activity>
     </application>
 

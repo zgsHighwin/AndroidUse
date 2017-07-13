@@ -13,6 +13,7 @@
         android:src="@mipmap/icon_androiod"/>
 
     <Button
+        android:id="@+id/button3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -21,29 +22,39 @@
         android:background="#aaaaaaaa"
         android:onClick="blur"
         android:text="模糊"
-        android:textColor="#aaffffff"
-        android:id="@+id/button3"/>
+        android:textColor="#aaffffff"/>
 
     <View
         android:id="@+id/view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="64dp"
-        android:background="#dd000000"
-        android:visibility="gone"/>
+        android:background="#33000000"
+        android:visibility="invisible"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/button3"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/button3"
+        android:layout_marginTop="51dp"
+        android:background="#aaaaaaaa"
+        android:onClick="visible"
+        android:text="visible"
+        android:textColor="#aaffffff"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="#aaaaaaaa"
-        android:onClick="visible"
-        android:text="visible"
+        android:onClick="blurView"
+        android:text="blur"
         android:textColor="#aaffffff"
         android:layout_alignParentTop="true"
-        android:layout_alignLeft="@+id/button3"
-        android:layout_alignStart="@+id/button3"
-        android:layout_marginTop="51dp"
-        android:id="@+id/button4"/>
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/button"/>
 
 
 </RelativeLayout>

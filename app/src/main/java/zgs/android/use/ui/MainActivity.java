@@ -6,6 +6,7 @@ import java.util.List;
 
 import zgs.android.use.ui.blur.BlurActivity;
 import zgs.android.use.ui.list.ListActivity;
+import zgs.android.use.ui.recyclerview.edit.EditActivity;
 
 
 /**
@@ -16,7 +17,10 @@ import zgs.android.use.ui.list.ListActivity;
 public class MainActivity extends ListActivity {
     @Override
     public List<Class<? extends AppCompatActivity>> addClassList() {
+        //图片虚化
         mClassList.add(BlurActivity.class);
+        //RecyclerView中EditText,CheckBox状态保存
+        mClassList.add(EditActivity.class);
         return mClassList;
     }
 }

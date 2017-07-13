@@ -3,15 +3,17 @@ package zgs.android.use.ui.blur;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.renderscript.Allocation;
 import android.renderscript.Element;
 import android.renderscript.RenderScript;
 import android.renderscript.ScriptIntrinsicBlur;
-import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
@@ -21,11 +23,11 @@ import zgs.android.use.R;
 public class BlurActivity extends AppCompatActivity {
 
     private boolean isBlur;
+    private boolean isViewBlur;
     private Bitmap mBitmap;
     private ImageView mIv;
     private View mView;
 
-    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,12 +47,21 @@ public class BlurActivity extends AppCompatActivity {
     }
 
     public void visible(View view) {
-        mView.setVisibility(mView.getVisibility() == View.GONE ? View.VISIBLE : View.GONE);
+        mView.setVisibility(mView.getVisibility() == View.INVISIBLE ? View.VISIBLE : View.INVISIBLE);
     }
 
     public void blur(View view) {
+        Log.d("BlurActivity", "isBlur:" + isBlur);
         mIv.setImageBitmap(!isBlur ? blurBitmap(mBitmap, 25) : mBitmap);
         isBlur = !isBlur;
+    }
+
+    public void blurView(View view){
+        BitmapDrawable bitmapDrawable25 = new BitmapDrawable(getResources(), blurBitmap(getScreenshot(mView), 25));
+        BitmapDrawable bitmapDrawable01 = new BitmapDrawable(getResources(), blurBitmap(getScreenshot(mView), 0.1f));
+        ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#dd000000"));
+        mView.setBackground(!isViewBlur? bitmapDrawable25 : bitmapDrawable01);
+        isViewBlur = !isViewBlur;
     }
 
 
